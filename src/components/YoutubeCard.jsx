@@ -24,7 +24,7 @@ const YoutubeCard = ({ type, title, icon, color }) => {
 
         try {
             // Assume backend is running on localhost:4000
-            const res = await axios.get(`http://localhost:4000/api/info?url=${encodeURIComponent(url)}`);
+            const res = await axios.get(`https://media-converter-backend-gpm0.onrender.com/api/info?url=${encodeURIComponent(url)}`);
             setVideoInfo(res.data);
 
             // Pre-select first option
@@ -69,7 +69,7 @@ const YoutubeCard = ({ type, title, icon, color }) => {
 
             const cleanTitle = `${videoInfo.title} ${qualityTag}`;
 
-            const response = await axios.get(`http://localhost:4000/api/download`, {
+            const response = await axios.get(`https://media-converter-backend-gpm0.onrender.com/api/download`, {
                 params: {
                     url: url,
                     itag: selectedFormat,
