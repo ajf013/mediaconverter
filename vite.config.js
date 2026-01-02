@@ -26,6 +26,9 @@ export default defineConfig({
             type: 'image/svg+xml'
           }
         ]
+      },
+      workbox: {
+        maximumFileSizeToCacheInBytes: 50 * 1024 * 1024, // 50MB to support ffmpeg-core.wasm
       }
     })
   ],
