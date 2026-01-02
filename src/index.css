@@ -1,0 +1,183 @@
+:root {
+  /* Light Mode - Dynamic Gradient */
+  --bg-gradient-light: linear-gradient(300deg, #f5f7fa, #c3cfe2, #e2ebf0, #e6dee9);
+
+  /* Glass Variables */
+  --text-color: #333;
+  --card-bg: rgba(255, 255, 255, 0.45);
+  --card-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --header-bg: rgba(255, 255, 255, 0.6);
+  --card-hover-bg: rgba(255, 255, 255, 0.6);
+  --accent-glow: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme='dark'] {
+  /* Dark Mode - Deep Aurora */
+  --bg-gradient-dark: linear-gradient(300deg, #0f2027, #203a43, #2c5364, #1a1a2e);
+
+  --text-color: #f0f0f0;
+  --card-bg: rgba(20, 20, 20, 0.5);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  --header-bg: rgba(0, 0, 0, 0.5);
+  --card-hover-bg: rgba(40, 40, 40, 0.6);
+  --accent-glow: rgba(0, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Animated Background */
+  background: var(--bg-gradient-light);
+  background-size: 300% 300%;
+  animation: gradientFlow 15s ease infinite;
+
+  color: var(--text-color);
+  min-height: 100vh;
+  transition: color 0.5s ease;
+}
+
+[data-theme='dark'] body {
+  background: var(--bg-gradient-dark);
+  background-size: 300% 300%;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: var(--card-bg) !important;
+  box-shadow: var(--glass-shadow) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px !important;
+  border: 1px solid var(--card-border) !important;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effect for Cards */
+.glass-panel:hover {
+  transform: translateY(-8px);
+  background: var(--card-hover-bg) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2),
+    0 0 20px var(--accent-glow) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Shimmer Overlay on Hover */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-25deg);
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.glass-panel:hover::before {
+  animation: shimmer 1s;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 150%;
+  }
+}
+
+.glass-header {
+  background: var(--header-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Scrollbar Polish */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.5);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.8);
+}
+
+/* Utility */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: calc(100vh - 200px);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Semantic UI Dropdown Overrides for better visibility */
+.ui.selection.dropdown {
+  min-width: 100%;
+  /* Ensure it takes full width of container */
+}
+
+.ui.dropdown .menu {
+  width: 100% !important;
+  /* Force menu to match dropdown width */
+  max-height: 300px !important;
+  /* increasing max height */
+}
+
+.ui.dropdown .menu>.item {
+  white-space: normal !important;
+  /* Allow text wrapping */
+  font-size: 0.95rem;
+  line-height: 1.4;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Specific fix for the text inside the input part of the dropdown */
+.ui.selection.dropdown .text {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
