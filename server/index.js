@@ -8,7 +8,7 @@ app.use(cors());
 
 // In production (Docker), we use system binaries installed in /usr/local/bin
 // In development (macOS), we use local binaries in the project folder
-const USE_SYSTEM = process.env.USE_SYSTEM_BINARIES === 'true';
+const USE_SYSTEM = process.env.USE_SYSTEM_BINARIES === 'true' || process.env.USE_SYSTEM_BINARIES === true;
 
 const YT_DLP_PATH = USE_SYSTEM ? 'yt-dlp' : path.join(__dirname, 'yt-dlp');
 const FFMPEG_PATH = USE_SYSTEM ? 'ffmpeg' : path.join(__dirname, 'ffmpeg');
