@@ -36,7 +36,13 @@ const YoutubeCard = ({ type, title, icon, color }) => {
 
         } catch (err) {
             console.error(err);
-            setErrorMsg('Failed to fetch video info. Make sure Server is running!');
+            const serverError = err.response?.data?.error;
+            // If the error indicates a bot detection/sign-in issue, show a more user-friendly message
+            if (serverError && serverError.includes('Sign in to confirm')) {
+                setErrorMsg('Server IP blocked by YouTube. Please try again later or deploy locally.');
+            } else {
+                setErrorMsg(serverError || 'Failed to fetch video info. Make sure Server is running!');
+            }
         } finally {
             setLoadingInfo(false);
         }
